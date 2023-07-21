@@ -1,0 +1,7 @@
+.infromation{
+    margin-left: 20%;
+    padding: 3rem;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
