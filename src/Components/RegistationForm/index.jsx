@@ -1,4 +1,4 @@
-import { Button, Form, Input, Space, DatePicker } from "antd";
+import { Button, Space, Form, Input } from "antd";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
@@ -11,23 +11,13 @@ const formItemLayout = {
     span: 8,
   },
 };
-const formTailLayout = {
-  labelCol: {
-    span: 4,
-  },
-  wrapperCol: {
-    span: 8,
-    offset: 4,
-  },
-};
+
+let check = false;
 
 export const RegistrationForm = () => {
   const [store, dispatch] = useContext(StoreContext);
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
-  const [isFormValid, setIsFormValid] = useState(false);
-  const [date, setDate] = useState("");
-  const [isBooked, setIsBooked] = useState(false);
 
   const onIINChange = (e) => {
     const iin = e.target.value;
@@ -41,7 +31,6 @@ export const RegistrationForm = () => {
       setMessage("Неправильный ИИН");
     } else {
       setMessage("");
-
       axios
         .get("http://localhost:3000/check-iin", {
           params: { iin },
@@ -80,114 +69,99 @@ export const RegistrationForm = () => {
     return Promise.reject("Неправильный номер телефона");
   };
 
+  const onCheck = async () => {
+    try {
+      const values = await form.getFieldsValue();
+      dispatch({
+        type: "create-user",
+        payload: values,
+      });
+      console.log("Success:", values);
+    } catch (error) {
+      console.log("Failed:", error.message);
+    }
+  };
   return (
     <>
-      <div className="information">
-        <h2>Добро пожаловать! Введите ваши данные</h2>
-        <Form
-          form={form}
-          name="dynamic_rule"
+      <h2 className="hello">Добро пожаловать! Введите ваши данные</h2>
+      <Form form={form} name="dynamic_rule" className="Form">
+        <Form.Item
+          {...formItemLayout}
+          name="IIN"
+          label="ИИН"
+          validateStatus={message ? "error" : ""}
+          help={message}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input
+            placeholder="Введите ваш ИИН"
+            onChange={onIINChange}
+            maxLength={12}
+          />
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          name="name"
+          label="Имя"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите ваше имя",
+            },
+            {
+              validator: nameSurnameValidator,
+            },
+          ]}
+        >
+          <Input placeholder="Введите ваше имя" />
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          name="surname"
+          label="Фамилия"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите вашу фамилию",
+            },
+            {
+              validator: nameSurnameValidator,
+            },
+          ]}
+        >
+          <Input placeholder="Введите вашу фамилию" />
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          name="contacts"
+          label="Номер телефона"
+          rules={[
+            {
+              required: true,
+              message: "Введите ваш номер телефона",
+            },
+            {
+              validator: phoneNumberValidator,
+            },
+          ]}
+        >
+          <Input placeholder="Введите ваши контактные данные" />
+        </Form.Item>
+        <Space
+          direction="vertical"
           style={{
-            width: 800,
-            marginTop: 37,
+            width: "50%",
           }}
         >
-          <Form.Item
-            {...formItemLayout}
-            name="IIN"
-            label="ИИН"
-            validateStatus={message ? "error" : ""}
-            help={message}
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Input
-              placeholder="Введите ваш ИИН"
-              onChange={onIINChange}
-              maxLength={12}
-            />
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            name="name"
-            label="Имя"
-            rules={[
-              {
-                required: true,
-                message: "Пожалуйста, введите ваше имя",
-              },
-              {
-                validator: nameSurnameValidator,
-              },
-            ]}
-          >
-            <Input placeholder="Введите ваше имя" />
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            name="surname"
-            label="Фамилия"
-            rules={[
-              {
-                required: true,
-                message: "Пожалуйста, введите вашу фамилию",
-              },
-              {
-                validator: nameSurnameValidator,
-              },
-            ]}
-          >
-            <Input placeholder="Введите вашу фамилию" />
-          </Form.Item>
-          <Form.Item
-            {...formItemLayout}
-            name="contacts"
-            label="Номер телефона"
-            rules={[
-              {
-                required: true,
-                message: "Введите ваш номер телефона",
-              },
-              {
-                validator: phoneNumberValidator,
-              },
-            ]}
-          >
-            <Input placeholder="Введите ваши контактные данные" />
-          </Form.Item>
-          <Form.Item {...formTailLayout}>
-            <div className="calendar">
-              <DatePicker
-                placeholder="Выберите дату"
-                value={date}
-                onChange={setDate}
-              />
-              {date && (
-                <div>
-                  <Button
-                    type="primary"
-                    onClick={() => {
-                      setIsBooked(true);
-                      axios.post("http://localhost:3000/book", {
-                        user,
-                        date,
-                      });
-                    }}
-                  >
-                    Записаться
-                  </Button>
-                  {isBooked && (
-                    <p>Вы записались на {date.format("YYYY-MM-DD")}</p>
-                  )}
-                </div>
-              )}
-            </div>
-          </Form.Item>
-        </Form>
-      </div>
+          <Button type="primary" block onClick={onCheck}>
+            Подтвердить личные данные
+          </Button>
+        </Space>
+      </Form>
     </>
   );
 };

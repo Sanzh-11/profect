@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
-import { DatePicker, Button } from "antd";
+import { DatePicker, Button, Space, Select } from "antd"; // Import Space and Select
 import axios from "axios";
-import "./Calendar.css";
 import { StoreContext } from "../../App";
 
 export const Calendar = (freeslots) => {
@@ -19,18 +18,60 @@ export const Calendar = (freeslots) => {
           onChange={setDate}
         />
         {date && (
-          <div>
-            <Button
-              type="primary"
-              onClick={() => {
-                setIsBooked(true);
-                axios.post("http://localhost:3000/book", { user, date });
+          <Space wrap>
+            <Select
+              defaultValue="Выберите время"
+              style={{
+                width: 100,
               }}
-            >
-              Записаться
-            </Button>
-            {isBooked && <p>Вы записались на {date.format("YYYY-MM-DD")}</p>}
-          </div>
+              options={[
+                {
+                  value: 10,
+                  label: "10:00-10:50",
+                },
+                {
+                  value: 11,
+                  label: "11:00-11:50",
+                },
+                {
+                  value: 12,
+                  label: "12:00-12:50",
+                },
+                {
+                  value: 14,
+                  label: "14:00-14:50",
+                },
+                {
+                  value: 15,
+                  label: "15:00-15:50",
+                },
+                {
+                  value: 16,
+                  label: "16:00-16:50",
+                },
+                {
+                  value: 17,
+                  label: "17:00-17:50",
+                },
+                {
+                  value: 18,
+                  label: "18:00-18:50",
+                },
+              ]}
+            />
+            <div className="zapis">
+              <Button
+                type="primary"
+                shape="round"
+                onClick={() => {
+                  setIsBooked(true);
+                  axios.post("http://localhost:3000/book", { user, date });
+                }}
+              >
+                Записаться
+              </Button>
+            </div>
+          </Space>
         )}
       </div>
     </>

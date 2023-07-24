@@ -29,21 +29,11 @@ export const StoreContextProvider = ({ children }) => {
 
 const AppContent = () => {
   const [store, dispatch] = useContext(StoreContext);
-  const { user, date } = store;
-  const month = [
-    {
-      start: new Date(),
-      end: new Date(),
-    },
-    {
-      start: new Date(),
-      end: new Date(),
-    },
-  ];
+
   return (
     <>
-      <div>{!user && <RegistrationForm />}</div>
-      <div>{user && <Calendar freeSlots={month} />}</div>
+      <RegistrationForm />
+      <Calendar />
     </>
   );
 };
