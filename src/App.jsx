@@ -2,6 +2,8 @@ import { useReducer, createContext, useContext } from "react";
 import "./App.css";
 import { RegistrationForm } from "./Components/RegistationForm";
 import { Calendar } from "./Components/Calendar";
+import { AboutWeb } from "./Components/AboutWeb";
+import { Info } from "./Components/Info";
 
 export const StoreContext = createContext({});
 
@@ -29,11 +31,14 @@ export const StoreContextProvider = ({ children }) => {
 
 const AppContent = () => {
   const [store, dispatch] = useContext(StoreContext);
+  const { user } = store;
 
   return (
     <>
+      <AboutWeb />
+      <Info />
       <RegistrationForm />
-      <Calendar />
+      {user && <Calendar />}
     </>
   );
 };

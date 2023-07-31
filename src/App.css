@@ -7,6 +7,8 @@ html {
 body {
   font-family: Arial, sans-serif;
   background-color: #a7deb4;
+  padding-right: 15%;
+  padding-left: 15%;
 }
 
 .Form {

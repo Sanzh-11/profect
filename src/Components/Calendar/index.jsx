@@ -1,13 +1,26 @@
 import React, { useState, useContext } from "react";
-import { DatePicker, Button, Space, Select } from "antd"; // Import Space and Select
+import { DatePicker, Button, Space, Select } from "antd";
 import axios from "axios";
 import { StoreContext } from "../../App";
 
 export const Calendar = (freeslots) => {
   const [date, setDate] = useState("");
-  const [isBooked, setIsBooked] = useState(false);
   const [store, dispatch] = useContext(StoreContext);
   const { user } = store;
+  const [timeInterval, setTimeInterval] = useState();
+
+  const timeIntervalChange = (value) => {
+    setTimeInterval(value);
+  };
+
+  const handleButtonClick = () => {
+    if (timeInterval) {
+      // console.log(user);
+      axios.post("http://localhost:3000/book", { user, date, timeInterval });
+    } else {
+      console.log("No timeInerval selected");
+    }
+  };
 
   return (
     <>
@@ -38,6 +51,10 @@ export const Calendar = (freeslots) => {
                   label: "12:00-12:50",
                 },
                 {
+                  value: 13,
+                  label: "13:00-13:50",
+                },
+                {
                   value: 14,
                   label: "14:00-14:50",
                 },
@@ -58,16 +75,10 @@ export const Calendar = (freeslots) => {
                   label: "18:00-18:50",
                 },
               ]}
+              onChange={timeIntervalChange}
             />
             <div className="zapis">
-              <Button
-                type="primary"
-                shape="round"
-                onClick={() => {
-                  setIsBooked(true);
-                  axios.post("http://localhost:3000/book", { user, date });
-                }}
-              >
+              <Button type="primary" shape="round" onClick={handleButtonClick}>
                 Записаться
               </Button>
             </div>

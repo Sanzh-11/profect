@@ -12,7 +12,7 @@ const formItemLayout = {
   },
 };
 
-let check = false;
+let a = 0;
 
 export const RegistrationForm = () => {
   const [store, dispatch] = useContext(StoreContext);
@@ -28,7 +28,7 @@ export const RegistrationForm = () => {
     } else if (new Set(iin).size === 1) {
       setMessage("Цифры должны быть разными");
     } else if (!/^\d+$/.test(iin)) {
-      setMessage("Неправильный ИИН");
+      setMessage("Используйте только цифры");
     } else {
       setMessage("");
       axios
@@ -54,22 +54,22 @@ export const RegistrationForm = () => {
   };
 
   const nameSurnameValidator = (_, value) => {
-    const regex = /^[a-zA-Zа-яА-Я\s]+$/;
+    const regex = /^[а-яА-Я\s]+$/;
     if (!value || regex.test(value)) {
       return Promise.resolve();
     }
-    return Promise.reject("Вводите только английские или русские буквы");
+    return Promise.reject("Вводите только русскими буквами");
   };
 
   const phoneNumberValidator = (_, value) => {
-    const regex = /^[0-9\s]+$/;
+    const regex = /^[\+]?[(]?[0-9]{4}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/gm;
     if (!value || regex.test(value)) {
       return Promise.resolve();
     }
     return Promise.reject("Неправильный номер телефона");
   };
 
-  const onCheck = async () => {
+  const handleCheck = async () => {
     try {
       const values = await form.getFieldsValue();
       dispatch({
@@ -84,7 +84,13 @@ export const RegistrationForm = () => {
   return (
     <>
       <h2 className="hello">Добро пожаловать! Введите ваши данные</h2>
-      <Form form={form} name="dynamic_rule" className="Form">
+      <Form
+        form={form}
+        name="dynamic_rule"
+        className="Form"
+        onFinish={handleCheck}
+        onFinishFailed={console.log}
+      >
         <Form.Item
           {...formItemLayout}
           name="IIN"
@@ -139,6 +145,8 @@ export const RegistrationForm = () => {
           {...formItemLayout}
           name="contacts"
           label="Номер телефона"
+          type="tel"
+          inputMode="tel"
           rules={[
             {
               required: true,
@@ -157,7 +165,7 @@ export const RegistrationForm = () => {
             width: "50%",
           }}
         >
-          <Button type="primary" block onClick={onCheck}>
+          <Button type="primary" block onClick={handleCheck}>
             Подтвердить личные данные
           </Button>
         </Space>
