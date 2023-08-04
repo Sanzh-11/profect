@@ -1,28 +1,23 @@
 import React from "react";
-import "./index.css";
-
+import "./AboutWeb.css";
+import img from "/img1.jpg";
 export const AboutWeb = () => {
-  const aboutWebStyle = {
-    fontSize: "30px",
-    margin: "0 auto",
-    paddingRight: "15%",
-    paddingLeft: "15%",
-    widht: "100%",
-    backgroundColor: "#f0f0f0",
-    height: "300px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    fontFamily: "Arial, sans-serif",
-  };
-
   return (
-    <div className="about" styles={aboutWebStyle}>
-      <p>
-        Приложения для удобной записи на Психо-Медико-Педагогическую комиссию
-        (ПМПК)
-      </p>
+    <div className="about">
+      <div className="text-container">
+        <p>
+          Приложения для удобной записи на
+          <br />
+          <span style={{ textDecoration: "underline", color: "green" }}>
+            Психолого-Медико-Педагогическую
+          </span>
+          <br />
+          комиссию (ПМПК).
+        </p>
+      </div>
+      <div className="image-container">
+        <img src={img} className="image" />
+      </div>
     </div>
   );
 };
