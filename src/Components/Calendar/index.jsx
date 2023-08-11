@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { DatePicker, Button, Space, Select } from "antd";
 import axios from "axios";
 import { StoreContext } from "../../App";
+import "./Calendar.css";
 
 export const Calendar = (freeslots) => {
   const [date, setDate] = useState("");
@@ -24,18 +25,21 @@ export const Calendar = (freeslots) => {
 
   return (
     <>
-      <div className="calendar">
+      <div className="calendar" id="calendar">
         <DatePicker
           placeholder="Выберите дату"
           value={date}
           onChange={setDate}
+          style={{
+            width: 150,
+          }}
         />
         {date && (
           <Space wrap>
             <Select
               defaultValue="Выберите время"
               style={{
-                width: 100,
+                width: 150,
               }}
               options={[
                 {
@@ -77,11 +81,14 @@ export const Calendar = (freeslots) => {
               ]}
               onChange={timeIntervalChange}
             />
-            <div className="zapis">
-              <Button type="primary" shape="round" onClick={handleButtonClick}>
-                Записаться
-              </Button>
-            </div>
+            <Button
+              type="primary"
+              shape="round"
+              onClick={handleButtonClick}
+              className="primary-button"
+            >
+              Записаться
+            </Button>
           </Space>
         )}
       </div>

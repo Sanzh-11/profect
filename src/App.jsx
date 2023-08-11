@@ -3,7 +3,6 @@ import "./App.css";
 import { RegistrationForm } from "./Components/RegistationForm";
 import { Calendar } from "./Components/Calendar";
 import { AboutWeb } from "./Components/AboutWeb";
-import { Info } from "./Components/Info";
 import { Navbar } from "./Components/Navbar";
 
 export const StoreContext = createContext({});
@@ -37,10 +36,11 @@ const AppContent = () => {
   return (
     <>
       <Navbar />
-      <AboutWeb ref={aboutRef} />
-      <Info ref={infoRef} />
-      <RegistrationForm ref={bookRef} />
-      {user && <Calendar />}
+      <AboutWeb />
+      <div className="reg">
+        <RegistrationForm />
+        {user && <Calendar />}
+      </div>
     </>
   );
 };

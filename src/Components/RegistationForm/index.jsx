@@ -2,6 +2,7 @@ import { Button, Space, Form, Input } from "antd";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
+import "./RegistrationForm.css";
 
 const formItemLayout = {
   labelCol: {
@@ -11,8 +12,6 @@ const formItemLayout = {
     span: 8,
   },
 };
-
-let a = 0;
 
 export const RegistrationForm = () => {
   const [store, dispatch] = useContext(StoreContext);
@@ -81,10 +80,12 @@ export const RegistrationForm = () => {
       console.log("Failed:", error.message);
     }
   };
+
   return (
-    <>
-      <h2 className="hello">Добро пожаловать! Введите ваши данные</h2>
+    <div className="registration">
+      <h2 className="hello">Введите ваши данные для записи</h2>
       <Form
+        id="signup"
         form={form}
         name="dynamic_rule"
         className="Form"
@@ -165,11 +166,16 @@ export const RegistrationForm = () => {
             width: "50%",
           }}
         >
-          <Button type="primary" block onClick={handleCheck}>
+          <Button
+            type="primary"
+            block
+            onClick={handleCheck}
+            className="primary-button"
+          >
             Подтвердить личные данные
           </Button>
         </Space>
       </Form>
-    </>
+    </div>
   );
 };

@@ -1,0 +1,16 @@
+.reg {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.Form {
+    width: 800px;
+}
+
+.hello {
+    color: #018362;;
+}
+

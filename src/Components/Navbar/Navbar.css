@@ -1,29 +1,27 @@
 .navbar {
-    display: flex;
-    align-items: center;
-    padding: 0 15px; 
-    height: 120px;
-    background-color: rgb(247, 247, 247);
-  }
+  width: 950px;
+  margin: 20px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  height: 120px;
+  background-color: rgb(255, 255, 255);
+}
 
-  .simple-radial {
-    background: radial-gradient(rgb(255, 255, 255), rgb(209, 248, 224));
-  }
-  
-  .logo-continer {
-    flex: 1;
-    padding-left: 15%;
-  }
-  
-  .img {
-    width: 40%;
-    height: 25%;
-    border-radius: 45%;
-  }
-  
-  .txt-container {
-    display: flex;
-    column-gap: 10px;
-    padding-right: 15%;
-  }
+.logo-continer {
+  flex: 1;
+  padding-left: 10%;
+}
+
+.img {
+  width: 40%;
+  height: 25%;
+  border-radius: 45%;
+}
+
+.txt-container {
+  display: flex;
+  column-gap: 10px;
+  padding-right: 10%;
+}
   
