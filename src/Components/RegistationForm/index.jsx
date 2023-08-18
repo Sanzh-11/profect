@@ -35,18 +35,15 @@ export const RegistrationForm = () => {
           params: { iin },
         })
         .then((response) => {
-          if (response.status === 200) {
-            const { name, surname, contacts } = response.data;
-            form.setFieldsValue({
-              name,
-              surname,
-              contacts,
-            });
-            setMessage("Данные успешно загружены!");
-          }
+          const { name, surname, contacts } = response.data;
+          form.setFieldsValue({
+            name,
+            surname,
+            contacts,
+          });
+          setMessage("Данные успешно загружены!");
         })
         .catch((error) => {
-          setMessage("Ошибка при получении данных");
           console.error(error);
         });
     }
@@ -96,7 +93,13 @@ export const RegistrationForm = () => {
           {...formItemLayout}
           name="IIN"
           label="ИИН"
-          validateStatus={message ? "error" : ""}
+          validateStatus={
+            message
+              ? message === "Данные успешно загружены!"
+                ? "success"
+                : "error"
+              : ""
+          }
           help={message}
           rules={[
             {
