@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { DatePicker, Button, Space, Select } from "antd";
+import { DatePicker, Button, Space, Select, Modal } from "antd";
 import axios from "axios";
 import { StoreContext } from "../../App";
 import "./Calendar.css";
@@ -43,11 +43,12 @@ const defaultTime = [
   },
 ];
 
-export const Calendar = (freeslots) => {
+export const Calendar = () => {
   const [date, setDate] = useState("");
   const [store, dispatch] = useContext(StoreContext);
   const { user } = store;
   const [timeInterval, setTimeInterval] = useState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [availableTime, setAvailableTime] = useState(defaultTime);
 
@@ -59,6 +60,7 @@ export const Calendar = (freeslots) => {
     if (timeInterval) {
       // console.log(user);
       axios.post("http://localhost:3000/book", { user, date, timeInterval });
+      setIsModalVisible(true);
     } else {
       console.log("No timeInerval selected");
     }
@@ -86,6 +88,14 @@ export const Calendar = (freeslots) => {
           console.error(error);
         });
     }
+  };
+
+  const handleModalOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleModalCancel = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -120,6 +130,18 @@ export const Calendar = (freeslots) => {
           </Space>
         )}
       </div>
+      <Modal
+        title="Подтверждение записи"
+        visible={isModalVisible}
+        onOk={handleModalOk}
+        onCancel={handleModalCancel}
+      >
+        <p>Вы успешно зарегистрировались</p>
+        <p>Ваши данные:</p>
+        <p>Ваше имя: {user.name}</p>
+        <p>Ваша фамилия: {user.surname}</p>
+        <p>Ваш номер: {user.contacts}</p>
+      </Modal>
     </>
   );
 };
