@@ -43,7 +43,7 @@ const defaultTime = [
   },
 ];
 
-export const Calendar = () => {
+export const TimeScheduler = () => {
   const [date, setDate] = useState("");
   const [store, dispatch] = useContext(StoreContext);
   const { user } = store;
