@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { DatePicker, Button, Space, Select, Modal } from "antd";
 import axios from "axios";
 import { StoreContext } from "../../App";
-import "./TimeScheduler.css";
+import "./styles.css";
 
 const defaultTime = [
   {
@@ -43,7 +43,7 @@ const defaultTime = [
   },
 ];
 
-export const Calendar = () => {
+const TimeScheduler = () => {
   const [date, setDate] = useState("");
   const [store, dispatch] = useContext(StoreContext);
   const { user } = store;
@@ -145,3 +145,5 @@ export const Calendar = () => {
     </>
   );
 };
+
+export default TimeScheduler;

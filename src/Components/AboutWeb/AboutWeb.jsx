@@ -1,10 +1,10 @@
 import React from "react";
-import "./AboutWeb.css";
+import "./styles.css";
 
 import doctorImg from "/doctor.jpeg";
 import PMPKwhat from "/PMPKwhat.jpg";
 import why from "/Why.jpg";
-export const AboutWeb = () => {
+const AboutWeb = () => {
   return (
     <>
       <div className="info-block" id="about">
@@ -42,3 +42,5 @@ export const AboutWeb = () => {
     </>
   );
 };
+
+export default AboutWeb;

@@ -1,9 +1,10 @@
 import { useReducer, createContext, useContext, useRef } from "react";
 import "./App.css";
-import { RegistrationForm } from "./Components/RegistationForm";
-import { TimeScheduler } from "./Components/TimeScheduler";
-import { AboutWeb } from "./Components/AboutWeb";
-import { Navbar } from "./Components/Navbar";
+import RegistrationForm from "./Components/RegistrationForm";
+import TimeScheduler from "./Components/TimeScheduler";
+import AboutWeb from "./Components/AboutWeb";
+import Navbar from "./Components/Navbar";
+import MyCalendar from "./Components/BigCalendar";
 
 export const StoreContext = createContext({});
 
@@ -37,6 +38,7 @@ const AppContent = () => {
     <>
       <Navbar />
       <AboutWeb />
+      <MyCalendar />
       <div className="reg">
         <RegistrationForm />
         {user && <TimeScheduler />}
