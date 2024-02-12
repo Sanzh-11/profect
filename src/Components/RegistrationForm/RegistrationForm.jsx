@@ -2,7 +2,7 @@ import { Button, Space, Form, Input } from "antd";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
-import "./RegistrationForm.css";
+import "./styles.css";
 
 const formItemLayout = {
   labelCol: {
@@ -13,7 +13,7 @@ const formItemLayout = {
   },
 };
 
-export const RegistrationForm = () => {
+const RegistrationForm = () => {
   const [store, dispatch] = useContext(StoreContext);
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
@@ -182,3 +182,5 @@ export const RegistrationForm = () => {
     </div>
   );
 };
+
+export default RegistrationForm;

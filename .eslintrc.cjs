@@ -1,15 +1,25 @@
+const fs = require('fs');
+const path = require('path');
+
+const prettierOptions = JSON.parse(
+  fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
+);
+
 module.exports = {
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-  ],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
+  extends: ['react-app', 'airbnb', 'plugin:jsx-a11y/recommended', 'prettier'],
+  plugins: ['jsx-a11y', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': 'warn',
+    'prettier/prettier': ['error', { prettierOptions }],
+    // 'no-console': 'error',
+    'react/jsx-props-no-spreading': 'off',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'import/prefer-default-export': 'off',
   },
-}
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+    },
+  },
+};
