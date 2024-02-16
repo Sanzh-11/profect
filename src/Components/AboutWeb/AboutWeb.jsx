@@ -1,9 +1,9 @@
 import React from "react";
 import "./styles.css";
 
-import doctorImg from "/doctor.jpeg";
-import PMPKwhat from "/PMPKwhat.jpg";
-import why from "/Why.jpg";
+import doctorImg from "../../assets/doctor.jpeg";
+import PMPKwhat from "../../assets/PMPKwhat.jpg";
+import why from "../../assets/Why.jpg";
 const AboutWeb = () => {
   return (
     <>
