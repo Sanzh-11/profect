@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 import { Button } from "antd";
-import img from "/logo.png";
+import img from "../../assets/logo.png";
 import { Link } from "react-scroll";
 
 const Navbar = () => {
