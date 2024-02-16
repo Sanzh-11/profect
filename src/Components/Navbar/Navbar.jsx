@@ -1,13 +1,13 @@
 import React from "react";
-import "./Navbar.css";
+import "./styles.css";
 import { Button } from "antd";
 import img from "/logo.png";
 import { Link } from "react-scroll";
 
-export const Navbar = () => {
+const Navbar = () => {
   return (
     <div className="navbar">
-      <div className="logo-continer">
+      <div className="logo-container">
         <img src={img} className="img" />
       </div>
       <div className="txt-container">
@@ -21,3 +21,5 @@ export const Navbar = () => {
     </div>
   );
 };
+
+export default Navbar;
