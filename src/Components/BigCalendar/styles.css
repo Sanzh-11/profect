@@ -25,6 +25,14 @@
     background-color: #6b988b !important;
 }
 
+.rbc-toolbar button {
+    border: 1px solid #c4d8d3 !important
+}
+
+.rbc-toolbar button:hover {
+    background-color: #6b988b !important; 
+}
+
 span[role="columnheader"] {
     font-weight: bold !important; 
 }

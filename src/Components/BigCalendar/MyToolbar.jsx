@@ -1,20 +1,22 @@
 import React from "react";
 import "./styles.css";
-// import { LeftSquareTwoTone } from "@ant-design/icons";
+import { Navigate } from "react-big-calendar";
+import { CaretLeftOutlined, CaretRightOutlined } from "@ant-design/icons"; // Import arrow icons from Ant Design Icons
 
 const MyToolbar = ({ label, views, onView, onNavigate }) => {
   return (
     <div className="rbc-toolbar">
-      <button onClick={() => onNavigate("PREV")}>
-        {/* <LeftSquareTwoTone /> */}
-        Back
+      <button onClick={() => onNavigate(Navigate.PREVIOUS)}>
+        <CaretLeftOutlined />
       </button>
-      <button onClick={() => onNavigate("Today")}>Today</button>
-      <button onClick={() => onNavigate("NEXT")}>Next</button>
+      <button onClick={() => onNavigate(Navigate.TODAY)}>Today</button>
+      <button onClick={() => onNavigate(Navigate.NEXT)}>
+        <CaretRightOutlined />
+      </button>
       <span className="rbc-toolbar-label">{label}</span>
-      <button onClick={() => onView(views.MONTH)}>Month</button>
-      <button onClick={() => onView(views.WEEK)}>Week</button>
-      <button onClick={() => onView(views.DAY)}>Day</button>
+      <button onClick={() => onView("month")}>Month</button>
+      <button onClick={() => onView("week")}>Week</button>
+      <button onClick={() => onView("day")}>Day</button>
     </div>
   );
 };

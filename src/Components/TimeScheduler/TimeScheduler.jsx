@@ -3,50 +3,12 @@ import { DatePicker, Button, Space, Select, Modal } from "antd";
 import axios from "axios";
 import { StoreContext } from "../../App";
 import "./styles.css";
+import defaultTime from "./constants.js";
 
-const defaultTime = [
-  {
-    value: 10,
-    label: "10:00-10:50",
-  },
-  {
-    value: 11,
-    label: "11:00-11:50",
-  },
-  {
-    value: 12,
-    label: "12:00-12:50",
-  },
-  {
-    value: 13,
-    label: "13:00-13:50",
-  },
-  {
-    value: 14,
-    label: "14:00-14:50",
-  },
-  {
-    value: 15,
-    label: "15:00-15:50",
-  },
-  {
-    value: 16,
-    label: "16:00-16:50",
-  },
-  {
-    value: 17,
-    label: "17:00-17:50",
-  },
-  {
-    value: 18,
-    label: "18:00-18:50",
-  },
-];
-
-const TimeScheduler = () => {
+const TimeScheduler = (handleSaveData) => {
   const [date, setDate] = useState("");
-  const [store, dispatch] = useContext(StoreContext);
-  const { user } = store;
+  // const [store, dispatch] = useContext(StoreContext);
+  // const { user } = store;
   const [timeInterval, setTimeInterval] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -54,16 +16,6 @@ const TimeScheduler = () => {
 
   const timeIntervalChange = (value) => {
     setTimeInterval(value);
-  };
-
-  const handleButtonClick = () => {
-    if (timeInterval) {
-      // console.log(user);
-      axios.post("http://localhost:3000/book", { user, date, timeInterval });
-      setIsModalVisible(true);
-    } else {
-      console.log("No timeInerval selected");
-    }
   };
 
   const handleDateChange = (date) => {
@@ -100,7 +52,7 @@ const TimeScheduler = () => {
 
   return (
     <>
-      <div className="calendar" id="calendar">
+      <div className="calendar">
         <DatePicker
           placeholder="Выберите дату"
           value={date}
@@ -122,7 +74,7 @@ const TimeScheduler = () => {
             <Button
               type="primary"
               shape="round"
-              onClick={handleButtonClick}
+              onClick={handleSaveData}
               className="primary-button"
             >
               Записаться
@@ -130,18 +82,18 @@ const TimeScheduler = () => {
           </Space>
         )}
       </div>
-      <Modal
-        title="Подтверждение записи"
+      {/* <Modal
         visible={isModalVisible}
+        title="Подтверждение записи"
         onOk={handleModalOk}
         onCancel={handleModalCancel}
       >
         <p>Вы успешно зарегистрировались</p>
         <p>Ваши данные:</p>
-        <p>Ваше имя: {user.name}</p>
-        <p>Ваша фамилия: {user.surname}</p>
-        <p>Ваш номер: {user.contacts}</p>
-      </Modal>
+        <p>Ваше имя: {user?.name}</p>
+        <p>Ваша фамилия: {user?.surname}</p>
+        <p>Ваш номер: {user?.contacts}</p>
+      </Modal> */}
     </>
   );
 };
