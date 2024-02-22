@@ -5,6 +5,7 @@ import TimeScheduler from "./Components/TimeScheduler";
 import AboutWeb from "./Components/AboutWeb";
 import Navbar from "./Components/Navbar";
 import MyCalendar from "./Components/BigCalendar";
+import SchedulerComponent from "./Components/SchedulerComponent";
 
 export const StoreContext = createContext({});
 
@@ -38,11 +39,11 @@ const AppContent = () => {
     <>
       <Navbar />
       <AboutWeb />
-      <MyCalendar />
       <div className="reg">
         <RegistrationForm />
         {user && <TimeScheduler />}
       </div>
+      <MyCalendar />
     </>
   );
 };
