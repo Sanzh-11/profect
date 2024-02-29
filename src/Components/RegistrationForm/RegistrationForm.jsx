@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { Button, Space, Form, Input } from "antd";
 import { useContext, useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
 import "./styles.css";
+import emailjs from "@emailjs/browser";
 
 const formItemLayout = {
   labelCol: {
@@ -78,16 +80,37 @@ const RegistrationForm = () => {
     }
   };
 
+  const form1 = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm("service_dx6mcoc", "template_9o4shkq", form1.current, {
+        publicKey: "JveTox720D8mq3mpU",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  };
+
   return (
     <div className="registration">
       <h2 className="hello">Введите ваши данные для записи</h2>
       <Form
         id="signup"
+        ref={form1}
         form={form}
         name="dynamic_rule"
         className="Form"
         onFinish={handleCheck}
         onFinishFailed={console.log}
+        formRef={form1}
       >
         <Form.Item
           {...formItemLayout}
@@ -162,6 +185,23 @@ const RegistrationForm = () => {
           ]}
         >
           <Input placeholder="Введите ваши контактные данные" />
+        </Form.Item>
+        <Form.Item
+          {...formItemLayout}
+          name="email"
+          label="Email"
+          rules={[
+            {
+              type: "email",
+              message: "Неправильный формат email",
+            },
+            {
+              required: true,
+              message: "Пожалуйста, введите ваш email",
+            },
+          ]}
+        >
+          <Input placeholder="Введите ваш email" />
         </Form.Item>
         <Space
           direction="vertical"
