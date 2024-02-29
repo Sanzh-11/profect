@@ -1,24 +1,24 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const prettierOptions = JSON.parse(
-  fs.readFileSync(path.resolve(__dirname, '.prettierrc'), 'utf8'),
+  fs.readFileSync(path.resolve(__dirname, ".prettierrc"), "utf8")
 );
 
 module.exports = {
-  extends: ['react-app', 'airbnb', 'plugin:jsx-a11y/recommended', 'prettier'],
-  plugins: ['jsx-a11y', 'prettier'],
+  extends: ["react-app", "airbnb", "plugin:jsx-a11y/recommended", "prettier"],
+  plugins: ["jsx-a11y", "prettier"],
   rules: {
-    'prettier/prettier': ['error', { prettierOptions }],
+    "prettier/prettier": ["error", { prettierOptions }],
     // 'no-console': 'error',
-    'react/jsx-props-no-spreading': 'off',
-    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    'import/prefer-default-export': 'off',
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
+    "import/prefer-default-export": "off",
   },
   settings: {
-    'import/resolver': {
+    "import/resolver": {
       node: {
-        paths: ['src'],
+        paths: ["src"],
       },
     },
   },
