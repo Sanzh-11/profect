@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button, Space, Form, Input } from "antd";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
 import "./styles.css";
@@ -16,7 +16,7 @@ const formItemLayout = {
 };
 
 const RegistrationForm = () => {
-  const [store, dispatch] = useContext(StoreContext);
+  // const [store, dispatch] = useContext(StoreContext);
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
 
@@ -70,10 +70,10 @@ const RegistrationForm = () => {
   const handleCheck = async () => {
     try {
       const values = await form.getFieldsValue();
-      dispatch({
-        type: "create-user",
-        payload: values,
-      });
+      // dispatch({
+      //   type: "create-user",
+      //   payload: values,
+      // });
       console.log("Success:", values);
     } catch (error) {
       console.log("Failed:", error.message);

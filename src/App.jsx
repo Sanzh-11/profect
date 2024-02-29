@@ -1,11 +1,12 @@
-import { useReducer, createContext, useContext, useRef } from "react";
+import React, { useReducer, createContext, useContext } from "react";
 import "./App.css";
 import RegistrationForm from "./Components/RegistrationForm";
 import TimeScheduler from "./Components/TimeScheduler";
 import AboutWeb from "./Components/AboutWeb";
 import Navbar from "./Components/Navbar";
 import MyCalendar from "./Components/BigCalendar";
-import SchedulerComponent from "./Components/SchedulerComponent";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthPage from "./Components/AuthPage";
 
 export const StoreContext = createContext({});
 
@@ -21,6 +22,7 @@ const reducer = (state, action) => {
   }
   return { ...state };
 };
+
 export const StoreContextProvider = ({ children }) => {
   const [store, dispatch] = useReducer(reducer, initState);
 
@@ -32,16 +34,17 @@ export const StoreContextProvider = ({ children }) => {
 };
 
 const AppContent = () => {
-  const [store, dispatch] = useContext(StoreContext);
-  const { user } = store;
+  // const [store] = useContext(StoreContext);
+  // const { user } = store;
 
   return (
     <>
       <Navbar />
       <AboutWeb />
-      <div className="reg">
+      <div>
         <RegistrationForm />
-        {user && <TimeScheduler />}
+        {/* {user && <TimeScheduler />} */}
+        <TimeScheduler />
       </div>
       <MyCalendar />
     </>
@@ -50,9 +53,13 @@ const AppContent = () => {
 
 function App() {
   return (
-    <StoreContextProvider>
-      <AppContent />
-    </StoreContextProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthPage />} />
+        <Route path="/test" element={<AppContent />} />
+      </Routes>
+    </BrowserRouter>
+    // <AuthPage />
   );
 }
 

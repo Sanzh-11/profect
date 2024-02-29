@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import moment from "moment";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { StoreContext } from "../../App";
@@ -11,8 +11,8 @@ const localizer = momentLocalizer(moment);
 
 const MyCalendar = () => {
   const [events, setEvents] = useState([]);
-  const [store, dispatch] = useContext(StoreContext);
-  const { user } = store;
+  // const [store, dispatch] = useContext(StoreContext);
+  // const { user } = store;
 
   const handleNewEvent = async () => {
     const newEvent = {
@@ -21,7 +21,7 @@ const MyCalendar = () => {
       end: moment([2024, 1, 11, 16, 0]).toDate(), // need to fetch from database
     };
 
-    const response = axios.post("http://localhost:3000/book", newEvent);
+    // const response = axios.post("http://localhost:3000/book", newEvent);
 
     setEvents([...events, newEvent]);
   };

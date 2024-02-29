@@ -7,8 +7,8 @@ import defaultTime from "./constants.js";
 
 const TimeScheduler = (handleSaveData) => {
   const [date, setDate] = useState("");
-  const [store, dispatch] = useContext(StoreContext);
-  const { user } = store;
+  // const [store, dispatch] = useContext(StoreContext);
+  // const { user } = store;
   const [timeInterval, setTimeInterval] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -82,7 +82,7 @@ const TimeScheduler = (handleSaveData) => {
           </Space>
         )}
       </div>
-      <Modal
+      {/* <Modal
         visible={isModalVisible}
         title="Подтверждение записи"
         onOk={handleModalOk}
@@ -93,7 +93,7 @@ const TimeScheduler = (handleSaveData) => {
         <p>Ваше имя: {user?.name}</p>
         <p>Ваша фамилия: {user?.surname}</p>
         <p>Ваш номер: {user?.contacts}</p>
-      </Modal>
+      </Modal> */}
     </>
   );
 };
