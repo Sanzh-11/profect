@@ -5,7 +5,7 @@ import { StoreContext } from "../../App";
 import "./styles.css";
 import defaultTime from "./constants.js";
 
-const TimeScheduler = (handleSaveData) => {
+const TimeScheduler = ({ handleButtonClick }) => {
   const [date, setDate] = useState("");
   // const [store, dispatch] = useContext(StoreContext);
   // const { user } = store;
@@ -74,7 +74,7 @@ const TimeScheduler = (handleSaveData) => {
             <Button
               type="primary"
               shape="round"
-              onClick={handleSaveData}
+              onClick={() => handleButtonClick(date, timeInterval)}
               className="primary-button"
             >
               Записаться

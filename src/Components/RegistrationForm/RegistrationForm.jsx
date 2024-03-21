@@ -13,11 +13,14 @@ const formItemLayout = {
   },
 };
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ handleUserSelect }) => {
   // const [store, dispatch] = useContext(StoreContext);
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
 
+  // axios.get("http://localhost:3000/all-bookings").then((response) => {
+  //   console.log(response);
+  // });
   const onIINChange = (e) => {
     const iin = e.target.value;
     if (iin.trim().length === 0) {
@@ -68,6 +71,7 @@ const RegistrationForm = () => {
   const handleCheck = async () => {
     try {
       const values = await form.getFieldsValue();
+      handleUserSelect(values);
       // dispatch({
       //   type: "create-user",
       //   payload: values,

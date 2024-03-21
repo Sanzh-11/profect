@@ -9,7 +9,7 @@ const AuthPage = () => {
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
-  console.log(profile);
+  console.log(user);
   useEffect(() => {
     if (user) {
       axios
@@ -29,7 +29,6 @@ const AuthPage = () => {
         .catch((err) => console.log(err));
     }
   }, [user]);
-  const [items, setItems] = useState([]);
 
   return (
     <div>
@@ -41,7 +40,7 @@ const AuthPage = () => {
           console.log("Login Failed");
         }}
       />
-      <button onClick={login}>Sign in with Google 🚀 </button>
+      {/* <button onClick={login}>Sign in with Google 🚀 </button> */}
     </div>
   );
 };

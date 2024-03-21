@@ -9,19 +9,26 @@ import axios from "axios";
 
 const localizer = momentLocalizer(moment);
 
-const MyCalendar = () => {
-  const [events, setEvents] = useState([]);
+const MyCalendar = ({ events }) => {
+  // const [events, setEvents] = useState([]);
   // const [store, dispatch] = useContext(StoreContext);
   // const { user } = store;
 
   const handleNewEvent = async () => {
     const newEvent = {
+      user: {
+        name: "Sanzhar",
+        surname: "Sanzhar",
+        IIN: "123",
+        contacts: "123",
+      },
       title: `EVENT NAME`,
-      start: moment([2024, 1, 11, 15, 0]).toDate(), // need to fetch from database
-      end: moment([2024, 1, 11, 16, 0]).toDate(), // need to fetch from database
+      date: moment([2024, 1, 11, 15, 0]).toDate(), // need to fetch from database
+      timeInterval: 30, // need to fetch from database
     };
 
-    // const response = axios.post("http://localhost:3000/book", newEvent);
+    const response = axios.post("http://localhost:3000/book", newEvent);
+    console.log(response);
 
     setEvents([...events, newEvent]);
   };

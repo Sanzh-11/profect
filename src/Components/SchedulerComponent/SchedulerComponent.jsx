@@ -5,7 +5,7 @@ import TimeScheduler from "../TimeScheduler";
 
 const SchedulerComponent = () => {
   const handleButtonClick = () => {
-    console.log(user);
+    console.log("clicked");
     axios.post("http://localhost:3000/book", { user, date, timeInterval });
     setIsModalVisible(true);
   };
