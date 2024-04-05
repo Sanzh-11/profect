@@ -43,7 +43,8 @@ const AppContent = () => {
 
   const [events, setEvents] = useState([]);
   const profile = JSON.parse(localStorage.getItem("profile"));
-  const handleButtonClick = (date, timeInterval) => {
+  const handleButtonClick = (date, timeInterval, fileList) => {
+    console.log(fileList);
     var timeAndDate = moment(date.toISOString())
       .set("hour", timeInterval)
       .set("minute", 0);
@@ -60,8 +61,12 @@ const AppContent = () => {
       timeInterval: 30,
     };
 
+    const form = new FormData();
+    form.append("file", fileList[0]);
+    form.append("body", serverEvent);
+
     const response = axios
-      .post("http://localhost:3000/book", serverEvent)
+      .post("http://localhost:3000/book-file", form)
       .then(() => {
         var endDate = moment(timeAndDate).add(1, "hours");
         console.log(date.toISOString());

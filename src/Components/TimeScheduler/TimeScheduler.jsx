@@ -13,32 +13,33 @@ import "./styles.css";
 import defaultTime from "./constants.js";
 import { UploadOutlined } from "@ant-design/icons";
 
-const props = {
-  name: "file",
-  action: "http://localhost:3000/upload",
-  headers: {
-    authorization: "authorization-text",
-  },
-  onChange(info) {
-    // setFilePath(`localhost:3000/${info.file.name}`);
-    if (info.file.status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (info.file.status === "done") {
-      message.success(`${info.file.name} file uploaded successfully`);
-    } else if (info.file.status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-};
-
 const TimeScheduler = ({ handleButtonClick }) => {
   const [date, setDate] = useState("");
   const [timeInterval, setTimeInterval] = useState();
   const [filePath, setFilePath] = useState("");
+  const [fileList, setFilelist] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [availableTime, setAvailableTime] = useState(defaultTime);
+
+  const props = {
+    name: "file",
+    action: "http://localhost:3000/upload",
+    headers: {
+      authorization: "authorization-text",
+    },
+    onRemove: (file) => {
+      setFilelist([]);
+    },
+    beforeUpload: (file) => {
+      setFilelist((fl) => {
+        return [file];
+      });
+      return false;
+    },
+    maxCount: 1,
+    fileList,
+  };
 
   const timeIntervalChange = (value) => {
     setTimeInterval(value);
@@ -103,7 +104,7 @@ const TimeScheduler = ({ handleButtonClick }) => {
             <Button
               type="primary"
               shape="round"
-              onClick={() => handleButtonClick(date, timeInterval, filePath)}
+              onClick={() => handleButtonClick(date, timeInterval, fileList)}
               className="primary-button"
             >
               Записаться
