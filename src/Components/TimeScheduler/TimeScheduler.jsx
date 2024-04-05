@@ -1,15 +1,41 @@
-import React, { useState, useContext } from "react";
-import { DatePicker, Button, Space, Select, Modal } from "antd";
+import React, { useState } from "react";
+import {
+  DatePicker,
+  Button,
+  Space,
+  Select,
+  Modal,
+  Upload,
+  message,
+} from "antd";
 import axios from "axios";
-import { StoreContext } from "../../App";
 import "./styles.css";
 import defaultTime from "./constants.js";
+import { UploadOutlined } from "@ant-design/icons";
+
+const props = {
+  name: "file",
+  action: "http://localhost:3000/upload",
+  headers: {
+    authorization: "authorization-text",
+  },
+  onChange(info) {
+    // setFilePath(`localhost:3000/${info.file.name}`);
+    if (info.file.status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === "done") {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+};
 
 const TimeScheduler = ({ handleButtonClick }) => {
   const [date, setDate] = useState("");
-  // const [store, dispatch] = useContext(StoreContext);
-  // const { user } = store;
   const [timeInterval, setTimeInterval] = useState();
+  const [filePath, setFilePath] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [availableTime, setAvailableTime] = useState(defaultTime);
@@ -71,10 +97,13 @@ const TimeScheduler = ({ handleButtonClick }) => {
               options={availableTime}
               onChange={timeIntervalChange}
             />
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
             <Button
               type="primary"
               shape="round"
-              onClick={() => handleButtonClick(date, timeInterval)}
+              onClick={() => handleButtonClick(date, timeInterval, filePath)}
               className="primary-button"
             >
               Записаться

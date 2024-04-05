@@ -1,4 +1,4 @@
-import { Button, Space, Form, Input } from "antd";
+import { Button, Space, Form, Input, message } from "antd";
 import { useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
@@ -14,13 +14,9 @@ const formItemLayout = {
 };
 
 const RegistrationForm = ({ handleUserSelect }) => {
-  // const [store, dispatch] = useContext(StoreContext);
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
 
-  // axios.get("http://localhost:3000/all-bookings").then((response) => {
-  //   console.log(response);
-  // });
   const onIINChange = (e) => {
     const iin = e.target.value;
     if (iin.trim().length === 0) {
@@ -167,6 +163,7 @@ const RegistrationForm = ({ handleUserSelect }) => {
         >
           <Input placeholder="Введите ваши контактные данные" />
         </Form.Item>
+
         <Space
           direction="vertical"
           style={{
