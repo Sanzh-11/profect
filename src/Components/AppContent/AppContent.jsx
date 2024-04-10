@@ -63,7 +63,7 @@ const AppContent = () => {
 
     const form = new FormData();
     form.append("file", fileList[0]);
-    form.append("body", serverEvent);
+    form.append("payload", JSON.stringify(serverEvent));
 
     const response = axios
       .post("http://localhost:3000/book-file", form)

@@ -3,6 +3,14 @@ import MyCalendar from "../BigCalendar/BigCalendar";
 import axios from "axios";
 import moment from "moment";
 import Modal from "react-modal";
+import emailjs from "@emailjs/browser";
+
+const templateParams = {
+  to_name: "test Sanzhar",
+  from_name: "test Website",
+  message: "Check this out!",
+  reply_to: "sanzhar.iden@gmail.com",
+};
 
 const AdminContent = () => {
   const [events, setEvents] = useState();
@@ -33,7 +41,29 @@ const AdminContent = () => {
 
         setEvents([...allEvents]);
         closeModal();
+        sendEmail(selectedEvent.email);
       });
+  };
+
+  const sendEmail = (to_email) => {
+    emailjs
+      .send(
+        "service_dz9pc4h",
+        "template_9o4shkq",
+        { ...templateParams, to_email: to_email },
+        {
+          publicKey: "JveTox720D8mq3mpU",
+          privateKey: "WEWIzWoOLgqBP_skdinGt",
+        }
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (err) => {
+          console.log("FAILED...", err);
+        }
+      );
   };
 
   useEffect(() => {
@@ -48,9 +78,10 @@ const AdminContent = () => {
             start: moment(serverEvent.date).toDate(),
             end: moment(serverEvent.date).add(1, "hours").toDate(),
             filePath: serverEvent.filePath,
+            email: serverEvent.email,
           });
         });
-        console.log(serverEvents);
+        console.log(response);
         setEvents(serverEvents);
       })
       .catch((error) => {
@@ -72,8 +103,10 @@ const AdminContent = () => {
               <li> Date: {selectedEvent.start.toString()} </li>
               <li> Contacts: {selectedEvent.contacts} </li>
               <li>
-                {" "}
-                <img src={selectedEvent.filePath} />{" "}
+                <a href={selectedEvent.filePath} target="_blank">
+                  {" "}
+                  Uploaded file{" "}
+                </a>
               </li>
             </ul>
           )}
