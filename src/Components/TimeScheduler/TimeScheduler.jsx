@@ -1,18 +1,45 @@
-import React, { useState, useContext } from "react";
-import { DatePicker, Button, Space, Select, Modal } from "antd";
+import React, { useState } from "react";
+import {
+  DatePicker,
+  Button,
+  Space,
+  Select,
+  Modal,
+  Upload,
+  message,
+} from "antd";
 import axios from "axios";
-import { StoreContext } from "../../App";
 import "./styles.css";
 import defaultTime from "./constants.js";
+import { UploadOutlined } from "@ant-design/icons";
 
-const TimeScheduler = (handleSaveData) => {
+const TimeScheduler = ({ handleButtonClick }) => {
   const [date, setDate] = useState("");
-  // const [store, dispatch] = useContext(StoreContext);
-  // const { user } = store;
   const [timeInterval, setTimeInterval] = useState();
+  const [filePath, setFilePath] = useState("");
+  const [fileList, setFilelist] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const [availableTime, setAvailableTime] = useState(defaultTime);
+
+  const props = {
+    name: "file",
+    action: "http://localhost:3000/upload",
+    headers: {
+      authorization: "authorization-text",
+    },
+    onRemove: (file) => {
+      setFilelist([]);
+    },
+    beforeUpload: (file) => {
+      setFilelist((fl) => {
+        return [file];
+      });
+      return false;
+    },
+    maxCount: 1,
+    fileList,
+  };
 
   const timeIntervalChange = (value) => {
     setTimeInterval(value);
@@ -71,10 +98,13 @@ const TimeScheduler = (handleSaveData) => {
               options={availableTime}
               onChange={timeIntervalChange}
             />
+            <Upload {...props}>
+              <Button icon={<UploadOutlined />}>Click to Upload</Button>
+            </Upload>
             <Button
               type="primary"
               shape="round"
-              onClick={handleSaveData}
+              onClick={() => handleButtonClick(date, timeInterval, fileList)}
               className="primary-button"
             >
               Записаться

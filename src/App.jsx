@@ -1,12 +1,10 @@
-import React, { useReducer, createContext, useContext } from "react";
+import React, { useReducer, createContext, useState } from "react";
 import "./App.css";
-import RegistrationForm from "./Components/RegistrationForm";
-import TimeScheduler from "./Components/TimeScheduler";
-import AboutWeb from "./Components/AboutWeb";
-import Navbar from "./Components/Navbar";
-import MyCalendar from "./Components/BigCalendar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./Components/AuthPage";
+import { Navigate } from "react-router";
+import AppContent from "./Components/AppContent";
+import AdminContent from "./Components/AdminContent/AdminContent";
 
 export const StoreContext = createContext({});
 
@@ -33,33 +31,25 @@ export const StoreContextProvider = ({ children }) => {
   );
 };
 
-const AppContent = () => {
-  // const [store] = useContext(StoreContext);
-  // const { user } = store;
-
-  return (
-    <>
-      <Navbar />
-      <AboutWeb />
-      <div>
-        <RegistrationForm />
-        {/* {user && <TimeScheduler />} */}
-        <TimeScheduler />
-      </div>
-      <MyCalendar />
-    </>
-  );
-};
-
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/test" element={<AppContent />} />
+        <Route
+          path="/"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/main" />
+            ) : (
+              <AuthPage setIsLoggedIn={setIsLoggedIn} />
+            )
+          }
+        />
+        <Route path="/main" element={<AppContent />} />
+        <Route path="/admin" element={<AdminContent />} />
       </Routes>
     </BrowserRouter>
-    // <AuthPage />
   );
 }
 

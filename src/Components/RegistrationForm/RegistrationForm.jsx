@@ -1,4 +1,4 @@
-import { Button, Space, Form, Input } from "antd";
+import { Button, Space, Form, Input, message } from "antd";
 import { useState } from "react";
 import { StoreContext } from "../../App";
 import axios from "axios";
@@ -13,8 +13,7 @@ const formItemLayout = {
   },
 };
 
-const RegistrationForm = () => {
-  // const [store, dispatch] = useContext(StoreContext);
+const RegistrationForm = ({ handleUserSelect }) => {
   const [form] = Form.useForm();
   const [message, setMessage] = useState("");
 
@@ -68,6 +67,7 @@ const RegistrationForm = () => {
   const handleCheck = async () => {
     try {
       const values = await form.getFieldsValue();
+      handleUserSelect(values);
       // dispatch({
       //   type: "create-user",
       //   payload: values,
@@ -163,6 +163,7 @@ const RegistrationForm = () => {
         >
           <Input placeholder="Введите ваши контактные данные" />
         </Form.Item>
+
         <Space
           direction="vertical"
           style={{
