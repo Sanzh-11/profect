@@ -6,7 +6,11 @@ import TimeScheduler from "../TimeScheduler";
 const SchedulerComponent = () => {
   const handleButtonClick = () => {
     console.log("clicked");
-    axios.post("http://localhost:3000/book", { user, date, timeInterval });
+    axios.post("https://veiled-shrouded-random.glitch.me/book", {
+      user,
+      date,
+      timeInterval,
+    });
     setIsModalVisible(true);
   };
   return (

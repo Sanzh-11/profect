@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import MyCalendar from "../BigCalendar/BigCalendar";
 import axios from "axios";
 import moment from "moment";
-import Modal from "react-modal";
+import { Modal } from "antd";
 import emailjs from "@emailjs/browser";
 
 const templateParams = {
@@ -33,13 +33,11 @@ const AdminContent = () => {
 
   const handleApprove = () => {
     const response = axios
-      .post("http://localhost:3000/approve-pending-booking", selectedEvent)
+      .post(
+        "https://veiled-shrouded-random.glitch.me/approve-pending-booking",
+        selectedEvent
+      )
       .then(() => {
-        const allEvents = events.filter(
-          (event) => event.id != selectedEvent.id
-        );
-
-        setEvents([...allEvents]);
         closeModal();
         sendEmail(selectedEvent.email);
       });
@@ -68,7 +66,7 @@ const AdminContent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/pending-bookings")
+      .get("https://veiled-shrouded-random.glitch.me/pending-bookings")
       .then((response) => {
         const serverEvents = [];
         response.data.map((serverEvent) => {
@@ -79,6 +77,7 @@ const AdminContent = () => {
             end: moment(serverEvent.date).add(1, "hours").toDate(),
             filePath: serverEvent.filePath,
             email: serverEvent.email,
+            approved: serverEvent.approved,
           });
         });
         console.log(response);
@@ -91,10 +90,8 @@ const AdminContent = () => {
   return (
     <>
       <MyCalendar events={events} onSelectEvent={handleSelect} />;
-      <Modal isOpen={modalIsOpen} contentLabel="Example Modal">
+      <Modal open={modalIsOpen} onCancel={closeModal} onOk={handleApprove}>
         <h2>Информация о пациенте</h2>
-        <button onClick={closeModal}>закрыть</button>
-        <button onClick={handleApprove}>подтвердить</button>
         <div>
           {selectedEvent && (
             <ul>

@@ -22,7 +22,7 @@ const AppContent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/all-bookings")
+      .get("https://veiled-shrouded-random.glitch.me/all-bookings")
       .then((response) => {
         const serverEvents = [];
         response.data.map((serverEvent) => {
@@ -31,6 +31,7 @@ const AppContent = () => {
             title: serverEvent.name + " " + serverEvent.surname,
             start: moment(serverEvent.date).toDate(),
             end: moment(serverEvent.date).add(1, "hours").toDate(),
+            approved: serverEvent.approved,
           });
         });
         console.log(serverEvents);
@@ -55,6 +56,7 @@ const AppContent = () => {
         surname: user.surname,
         IIN: user.IIN,
         contacts: user.contacts,
+        email: profile.email,
       },
       title: user.name + " " + user.surname,
       date: timeAndDate.toDate(),
@@ -66,7 +68,7 @@ const AppContent = () => {
     form.append("payload", JSON.stringify(serverEvent));
 
     const response = axios
-      .post("http://localhost:3000/book-file", form)
+      .post("https://veiled-shrouded-random.glitch.me/book-file", form)
       .then(() => {
         var endDate = moment(timeAndDate).add(1, "hours");
         console.log(date.toISOString());

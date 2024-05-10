@@ -28,7 +28,9 @@ const AuthPage = () => {
           setProfile(res.data);
           localStorage.setItem("profile", JSON.stringify(res.data));
           axios
-            .get(`http://localhost:3000/check-by-email?email=${res.data.email}`)
+            .get(
+              `https://veiled-shrouded-random.glitch.me/check-by-email?email=${res.data.email}`
+            )
             .then((res) => {
               console.log(res);
               if (res.data.admin) {

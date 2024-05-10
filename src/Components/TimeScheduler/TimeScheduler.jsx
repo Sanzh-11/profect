@@ -24,7 +24,7 @@ const TimeScheduler = ({ handleButtonClick }) => {
 
   const props = {
     name: "file",
-    action: "http://localhost:3000/upload",
+    action: "https://veiled-shrouded-random.glitch.me/upload",
     headers: {
       authorization: "authorization-text",
     },
@@ -49,7 +49,9 @@ const TimeScheduler = ({ handleButtonClick }) => {
     setDate(date);
     if (date) {
       axios
-        .get("http://localhost:3000/check-date", { params: { date } })
+        .get("https://veiled-shrouded-random.glitch.me/check-date", {
+          params: { date },
+        })
         .then((response) => {
           const bookedTimes = response.data;
 
