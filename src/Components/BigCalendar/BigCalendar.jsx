@@ -26,7 +26,7 @@ const MyCalendar = ({ events, onSelectEvent }) => {
         timeslots={1}
         components={{ toolbar: MyToolbar }}
         eventPropGetter={(event) => {
-          const backgroundColor = event.approved ? "#0f0" : "#f00";
+          const backgroundColor = event.approved ? "#159215" : "#911a2a";
           return { style: { backgroundColor } };
         }}
       />
