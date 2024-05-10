@@ -1,6 +1,6 @@
 import React, { useReducer, createContext, useState } from "react";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import AuthPage from "./Components/AuthPage";
 import { Navigate } from "react-router";
 import AppContent from "./Components/AppContent";
@@ -34,7 +34,7 @@ export const StoreContextProvider = ({ children }) => {
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Routes>
         <Route
           path="/"
@@ -49,7 +49,7 @@ function App() {
         <Route path="/main" element={<AppContent />} />
         <Route path="/admin" element={<AdminContent />} />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
