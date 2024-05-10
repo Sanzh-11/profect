@@ -12,10 +12,10 @@ const Navbar = () => {
       </div>
       <div className="txt-container">
         <Link to="info" smooth={true} duration={750} className="button-link">
-          <Button>Информация</Button>
+          <Button></Button>
         </Link>
         <Link to="signup" smooth={true} duration={1000} className="button-link">
-          <Button className="primary-button">Записаться</Button>
+          <Button className="primary-button">Register</Button>
         </Link>
       </div>
     </div>
