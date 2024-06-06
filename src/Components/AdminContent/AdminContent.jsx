@@ -39,15 +39,57 @@ const AdminContent = () => {
       )
       .then(() => {
         closeModal();
-        sendEmail(selectedEvent.email);
+        sendApproveEmail(selectedEvent.email);
       });
   };
 
-  const sendEmail = (to_email) => {
+  const handleDelete = () => {
+    if (selectedEvent) {
+      axios
+        .delete(
+          `https://veiled-shrouded-random.glitch.me/delete-booking/${selectedEvent.id}`
+        )
+        .then((response) => {
+          const updatedEvents = events.filter(
+            (event) => event.id !== selectedEvent.id
+          );
+          setEvents(updatedEvents);
+          sendDeleteEmail(selectedEvent.email);
+          closeModal();
+          console.log("Event deleted successfully:", response.data);
+        })
+        .catch((error) => {
+          console.error("Failed to delete the event:", error);
+        });
+    }
+  };
+
+  const sendApproveEmail = (to_email) => {
     emailjs
       .send(
         "service_dz9pc4h",
         "template_9o4shkq",
+        { ...templateParams, to_email: to_email },
+        {
+          publicKey: "JveTox720D8mq3mpU",
+          privateKey: "WEWIzWoOLgqBP_skdinGt",
+        }
+      )
+      .then(
+        (response) => {
+          console.log("SUCCESS!", response.status, response.text);
+        },
+        (err) => {
+          console.log("FAILED...", err);
+        }
+      );
+  };
+
+  const sendDeleteEmail = (to_email) => {
+    emailjs
+      .send(
+        "service_ftitmeb",
+        "template_7ewpil9",
         { ...templateParams, to_email: to_email },
         {
           publicKey: "JveTox720D8mq3mpU",
@@ -108,6 +150,7 @@ const AdminContent = () => {
             </ul>
           )}
         </div>
+        <button onClick={handleDelete}>удалить</button>
       </Modal>
     </>
   );

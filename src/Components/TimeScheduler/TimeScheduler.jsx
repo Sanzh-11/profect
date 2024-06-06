@@ -16,7 +16,6 @@ import { UploadOutlined } from "@ant-design/icons";
 const TimeScheduler = ({ handleButtonClick }) => {
   const [date, setDate] = useState("");
   const [timeInterval, setTimeInterval] = useState();
-  const [filePath, setFilePath] = useState("");
   const [fileList, setFilelist] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
